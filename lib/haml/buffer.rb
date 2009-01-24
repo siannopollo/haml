@@ -231,12 +231,12 @@ RUBY
       ref = ref[0]
       # Let's make sure the value isn't nil. If it is, return the default Hash.
       return {} if ref.nil?
-      class_name = underscore(ref.class)
-      id = "#{class_name}_#{ref.id || 'new'}"
+      class_name = id = underscore(ref.class)
       if prefix
         class_name = "#{ prefix }_#{ class_name}"
         id = "#{ prefix }_#{ id }"
       end
+      id = ref.id ? "#{id}_#{ref.id}" : "new_#{id}"
 
       {'id' => id, 'class' => class_name}
     end

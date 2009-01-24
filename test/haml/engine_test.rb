@@ -447,9 +447,9 @@ HAML
     
     foo = []
     foo[0] = Struct.new('Foo', :id).new
-    assert_equal("<p class='struct_foo' id='struct_foo_new'>New User]</p>\n",
+    assert_equal("<p class='struct_foo' id='new_struct_foo'>New User]</p>\n",
                  render("%p[foo[0]] New User]", :locals => {:foo => foo}))
-    assert_equal("<p class='prefix_struct_foo' id='prefix_struct_foo_new'>New User]</p>\n",
+    assert_equal("<p class='prefix_struct_foo' id='new_prefix_struct_foo'>New User]</p>\n",
                  render("%p[foo[0], :prefix] New User]", :locals => {:foo => foo}))
 
     foo[0].id = 1
@@ -574,8 +574,10 @@ END
 
   def test_object_ref_with_nil_id
     user = User.new
-    assert_equal("<p class='struct_user' id='struct_user_new'>New User</p>\n",
+    assert_equal("<p class='struct_user' id='new_struct_user'>New User</p>\n",
                  render("%p[user] New User", :locals => {:user => user}))
+    assert_equal("<p class='blue_struct_user' id='new_blue_struct_user'>New User</p>\n",
+                 render("%p[user, :blue] New User", :locals => {:user => user}))
   end
 
   def test_object_ref_before_attrs
